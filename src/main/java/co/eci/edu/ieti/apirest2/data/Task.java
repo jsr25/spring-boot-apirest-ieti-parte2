@@ -1,5 +1,7 @@
 package co.eci.edu.ieti.apirest2.data;
 
+import co.eci.edu.ieti.apirest2.dto.TaskDto;
+
 import java.util.Date;
 
 public class Task {
@@ -9,7 +11,7 @@ public class Task {
 
     private String description;
 
-    private String Status;
+    private String status;
 
     private String assignedTo;
 
@@ -17,6 +19,17 @@ public class Task {
 
     private Date created;
 
+    public Task() {
+    }
+
+    public Task(TaskDto taskDto){
+        this.name=taskDto.getName();
+        this.description=taskDto.getDescription();
+        this.status=taskDto.getStatus();
+        this.assignedTo=taskDto.getAssignedTo();
+        this.dueDate=taskDto.getDueDate();
+        this.created=taskDto.getCreated();
+    }
     public String getId() {
         return id;
     }
@@ -42,11 +55,11 @@ public class Task {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getAssignedTo() {
