@@ -44,7 +44,10 @@ public class TaskServiceHashMap implements TaskService {
 
     @Override
     public Task update(Task task, String id) {
+        if(hashMap.containsKey(id)){
         hashMap.put(id,task);
         return task;
+        }
+        return null;
     }
 }

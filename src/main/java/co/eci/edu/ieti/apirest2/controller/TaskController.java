@@ -21,10 +21,10 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> all(){
-        try{
+    public ResponseEntity<List<Task>> all() {
+        try {
             return new ResponseEntity<>(taskService.all(), HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -32,7 +32,7 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<Task> findById(@PathVariable String id) {
         try {
-            return new ResponseEntity<>(taskService.findById(id),HttpStatus.OK);
+            return new ResponseEntity<>(taskService.findById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -40,9 +40,9 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<Task> create(@RequestBody TaskDto taskDto) {
-        try{
-            return new ResponseEntity<>(taskService.create(new Task(taskDto)),HttpStatus.CREATED);
-        }catch (Exception e){
+        try {
+            return new ResponseEntity<>(taskService.create(new Task(taskDto)), HttpStatus.CREATED);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -50,20 +50,24 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Task> update(@RequestBody TaskDto userDto, @PathVariable String id) {
-        try{
-            return new ResponseEntity<>(taskService.update(new Task(userDto),id),HttpStatus.OK);
-        }catch (Exception e){
+        try {
+            Task task = taskService.update(new Task(userDto), id);
+            if (task != null) {
+                return new ResponseEntity<>(task, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(task,HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable String id) {
-        try{
+        try {
             taskService.deleteById(id);
-            return new ResponseEntity<>(true,HttpStatus.OK);
-        }catch(Exception e){
-            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

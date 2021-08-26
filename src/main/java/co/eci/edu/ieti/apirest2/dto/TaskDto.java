@@ -8,7 +8,7 @@ public class TaskDto {
 
     private String description;
 
-    private String Status;
+    private String status;
 
     private String assignedTo;
 
@@ -33,11 +33,11 @@ public class TaskDto {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getAssignedTo() {
